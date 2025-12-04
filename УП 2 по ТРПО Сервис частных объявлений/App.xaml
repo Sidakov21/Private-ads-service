@@ -4,6 +4,34 @@
              xmlns:local="clr-namespace:УП_2_по_ТРПО_Сервис_частных_объявлений"
              StartupUri="MainWindow.xaml">
     <Application.Resources>
-         
+        <Style x:Key="PlaceholderTextBoxStyle" TargetType="Grid">
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="HorizontalAlignment" Value="Left"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
+            <Setter Property="Margin" Value="10,0,0,0"/>
+        </Style>
+
+        <Style x:Key="PlaceholderTextStyle" TargetType="TextBlock">
+            <Setter Property="Foreground" Value="#78909C"/>
+            <Setter Property="FontFamily" Value="Tw Cen MT"/>
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="IsHitTestVisible" Value="False"/>
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding Text, ElementName=SearchBox}" Value="">
+                    <Setter Property="Visibility" Value="Visible"/>
+                </DataTrigger>
+                <DataTrigger Binding="{Binding Text, ElementName=SearchBox}" Value="{x:Null}">
+                    <Setter Property="Visibility" Value="Visible"/>
+                </DataTrigger>
+                <Trigger Property="Text" Value="{x:Null}">
+                    <Setter Property="Visibility" Value="Collapsed"/>
+                </Trigger>
+                <Trigger Property="Text" Value="">
+                    <Setter Property="Visibility" Value="Collapsed"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
     </Application.Resources>
+    
+    
 </Application>

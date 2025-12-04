@@ -19,8 +19,7 @@ namespace УП_2_по_ТРПО_Сервис_частных_объявлений
     /// <summary>
     /// Логика взаимодействия для MainWindow.xaml
     /// </summary>
-    /// 
-
+    
     public partial class MainWindow : Window
     {
         private Sidakov_DB_PrivateAdsEntities _context = new Sidakov_DB_PrivateAdsEntities();
@@ -28,17 +27,9 @@ namespace УП_2_по_ТРПО_Сервис_частных_объявлений
         public MainWindow()
         {
             InitializeComponent();
-            LoadAds();
             LoadFilters();
-        }
+            ApplyFiltersAndLoadAds();
 
-        public void LoadAds()
-        {
-            using (var db = new Sidakov_DB_PrivateAdsEntities())
-            {
-                var ads = db.Ads.ToList();
-                AdsList.ItemsSource = ads;
-            }
         }
 
         private void LoadFilters()
@@ -65,51 +56,63 @@ namespace УП_2_по_ТРПО_Сервис_частных_объявлений
 
         public void ApplyFiltersAndLoadAds()
         {
-            IQueryable<Ads> query = _context.Ads
-                .Include(a => a.Cities)
-                .Include(a => a.Categories)
-                .Include(a => a.Ad_Types)
-                .Include(a => a.Ad_Statuses);
-
-            string search = SearchBox.Text.ToLower().Trim();
-
-            if (StatusFilter.SelectedIndex == -1)
+            using (var db = new Sidakov_DB_PrivateAdsEntities())
             {
-                query = query.Where(a => a.Ad_Statuses.status_name == "Активно");
+                IQueryable<Ads> query = db.Ads
+                    .Include(a => a.Cities)
+                    .Include(a => a.Categories)
+                    .Include(a => a.Ad_Types)
+                    .Include(a => a.Ad_Statuses);
+
+                string search = SearchBox.Text.ToLower().Trim();
+
+                if (!string.IsNullOrWhiteSpace(search))
+                {
+                    query = query.Where(a =>
+                        a.ad_title.ToLower().Contains(search) ||
+                        a.ad_description.ToLower().Contains(search)
+                    );
+                }
+
+                if (StatusFilter.SelectedItem is Ad_Statuses selectedStatus)
+                {
+                    query = query.Where(a => a.ad_status_id == selectedStatus.status_id);
+                }
+                else
+                {
+                    query = query.Where(a => a.Ad_Statuses.status_name == "Активно");
+                }
+
+                if (CityFilter.SelectedItem is Cities selectedCity)
+                {
+                    query = query.Where(a => a.city_id == selectedCity.city_id);
+                }
+
+                if (CategoryFilter.SelectedItem is Categories selectedCategory)
+                {
+                    query = query.Where(a => a.category_id == selectedCategory.category_id);
+                }
+
+                if (TypeFilter.SelectedItem is Ad_Types selectedType)
+                {
+                    query = query.Where(a => a.ad_type_id == selectedType.type_id);
+                }
+
+                AdsList.ItemsSource = query.ToList();
             }
+        }
 
+        private void SearchBox_GotFocus(object sender, RoutedEventArgs e)
+        {
+            SearchHint.Visibility = Visibility.Hidden;
+        }
 
-            if (!string.IsNullOrWhiteSpace(search))
+        private void SearchBox_LostFocus(object sender, RoutedEventArgs e)
+        {
+            if (string.IsNullOrWhiteSpace(SearchBox.Text))
             {
-                query = query.Where(a =>
-                    a.ad_title.ToLower().Contains(search) ||
-                    a.ad_description.ToLower().Contains(search)
-                );
+                SearchHint.Visibility = Visibility.Visible;
             }
-
-            if (CityFilter.SelectedItem is Cities selectedCity)
-            {
-                query = query.Where(a => a.city_id == selectedCity.city_id);
-            }
-
-
-            if (CategoryFilter.SelectedItem is Categories selectedCategory)
-            {
-                query = query.Where(a => a.category_id == selectedCategory.category_id);
-            }
-
-
-            if (TypeFilter.SelectedItem is Ad_Types selectedType)
-            {
-                query = query.Where(a => a.ad_type_id == selectedType.type_id);
-            }
-
-            if (StatusFilter.SelectedItem is Ad_Statuses selectedStatus)
-            {
-                query = query.Where(a => a.ad_status_id == selectedStatus.status_id);
-            }
-
-            AdsList.ItemsSource = query.ToList();
         }
 
         private void Search_Click(object sender, RoutedEventArgs e)
@@ -117,5 +120,21 @@ namespace УП_2_по_ТРПО_Сервис_частных_объявлений
             ApplyFiltersAndLoadAds();
         }
 
+        private void ResetFilters_Click(object sender, RoutedEventArgs e)
+        {
+            SearchBox.Text = string.Empty;
+
+            CityFilter.SelectedIndex = -1;
+            CategoryFilter.SelectedIndex = -1;
+            TypeFilter.SelectedIndex = -1;
+            StatusFilter.SelectedIndex = -1;
+
+            CityFilter.Text = "Выберите город";
+            CategoryFilter.Text = "Выберите категорию";
+            TypeFilter.Text = "Выберите тип";
+            StatusFilter.Text = "Выберите статус";
+
+            ApplyFiltersAndLoadAds();
+        }
     }
 }
