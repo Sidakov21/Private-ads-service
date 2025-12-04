@@ -18,11 +18,31 @@ namespace УП_2_по_ТРПО_Сервис_частных_объявлений
     /// <summary>
     /// Логика взаимодействия для MainWindow.xaml
     /// </summary>
+    /// 
+
     public partial class MainWindow : Window
     {
+        private Sidakov_DB_PrivateAdsEntities _context = new Sidakov_DB_PrivateAdsEntities();
+
         public MainWindow()
         {
             InitializeComponent();
+            LoadAds();
         }
+
+        public void LoadAds()
+        {
+            using (var db = new Sidakov_DB_PrivateAdsEntities())
+            {
+                var ads = db.Ads.ToList();
+                AdsList.ItemsSource = ads;
+            }
+        }
+
+        private void Search_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
     }
 }
