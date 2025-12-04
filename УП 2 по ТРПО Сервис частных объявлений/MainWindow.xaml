@@ -57,15 +57,21 @@
                   SelectionMode="Single"
                   BorderThickness="0">
 
+            <ListView.ItemContainerStyle>
+                <Style TargetType="ListViewItem">
+                    <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+                </Style>
+            </ListView.ItemContainerStyle>
+
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <Border BorderBrush="#CCCCCC" BorderThickness="1" Padding="10" Margin="0 0 0 16" Background="White">
                         <StackPanel Orientation="Horizontal">
 
                             <!-- Фото или заглушка -->
-                            <Image Width="120" Height="120" 
+                            <Image Width="200" Height="200" 
                                    Margin="0 0 16 0" 
-                                   Stretch="UniformToFill" 
+                                   Stretch="Fill" 
                                    Source="{Binding DisplayPhotoSource}"/>
 
                             <!-- Информация об объявлении -->
