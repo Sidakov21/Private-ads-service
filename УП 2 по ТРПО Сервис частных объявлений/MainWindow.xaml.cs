@@ -72,6 +72,7 @@ namespace УП_2_по_ТРПО_Сервис_частных_объявлений
                 AddAdButton.Visibility = Visibility.Visible;
                 DeleteAdSelectedButton.Visibility = Visibility.Visible;
                 ShowMyAdsCheckBox.Visibility = Visibility.Visible;
+                ViewCompletedAdsButton.Visibility = Visibility.Visible;
 
                 AuthButton.Content = "Личный кабинет";
             }
@@ -81,6 +82,7 @@ namespace УП_2_по_ТРПО_Сервис_частных_объявлений
                 DeleteAdSelectedButton.Visibility = Visibility.Collapsed;
                 ShowMyAdsCheckBox.IsChecked = false;
                 ShowMyAdsCheckBox.Visibility = Visibility.Collapsed;
+                ViewCompletedAdsButton.Visibility = Visibility.Collapsed;
 
                 AuthButton.Content = "Войти";
             }
@@ -330,6 +332,15 @@ namespace УП_2_по_ТРПО_Сервис_частных_объявлений
                     Application.Current.Shutdown();
                 }
             }
+        }
+       
+        private void ViewCompletedAdsButton_Click(object sender, RoutedEventArgs e)
+        {
+            CompletedAdsWindow completedAdsWindow = new CompletedAdsWindow();
+            completedAdsWindow.ShowDialog();
+
+            ApplyFiltersAndLoadAds();
+            UpdateUiForAuthorization();
         }
     }
 }
