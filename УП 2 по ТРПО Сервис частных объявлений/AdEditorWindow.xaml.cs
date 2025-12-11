@@ -27,6 +27,8 @@ namespace УП_2_по_ТРПО_Сервис_частных_объявлений
         private Ad_Statuses _originalAdStatus;
         private bool _isAdAlreadyCompleted = false;
 
+        private string _selectedPhotoPath;
+
         // Конструктор для ДОБАВЛЕНИЯ нового объявления
         public AdEditorWindow()
         {
@@ -120,10 +122,28 @@ namespace УП_2_по_ТРПО_Сервис_частных_объявлений
             TypeBox.SelectedItem = adToEdit.Ad_Types;
             StatusBox.SelectedItem = adToEdit.Ad_Statuses;
 
-            // 4. Блокировка полей, если объявление уже завершено
+            //Загрузка сущесвтующего фото
+            if (!string.IsNullOrEmpty(adToEdit.ad_photo_path))
+            {
+                try
+                {
+                    // Предполагаем, что ad_photo_path хранится относительно папки приложения (например, "Images/файл.jpg")
+                    string photoPath = System.IO.Path.Combine(AppDomain.CurrentDomain.BaseDirectory, adToEdit.ad_photo_path.TrimStart('/', '\\'));
+                    AdImagePreview.Source = new BitmapImage(new Uri(photoPath));
+                    PhotoTextBlock.Text = $"Фотография: {System.IO.Path.GetFileName(photoPath)}"; // Показываем имя файла
+                    _selectedPhotoPath = adToEdit.ad_photo_path; // Сохраняем существующий путь
+                }
+                catch
+                {
+                    // Игнорируем ошибку загрузки, если файл не найден или путь некорректен
+                    AdImagePreview.Source = null;
+                    PhotoTextBlock.Text = "Фото не найдено.";
+                }
+            }
+
+            // Блокировка полей, если объявление уже завершено
             if (_isAdAlreadyCompleted)
             {
-                // Блокируем StatusBox и ProfitBox, чтобы не менять сумму сделки и статус после сохранения прибыли
                 StatusBox.IsEnabled = false;
                 ProfitBox.IsEnabled = false;
             }
@@ -143,14 +163,6 @@ namespace УП_2_по_ТРПО_Сервис_частных_объявлений
                     if (_adId.HasValue)
                     {
                         var ad = _context.Ads.Find(_adId.Value);
-                        if (ad != null)
-                        {
-                            // Загрузка суммы, полученной по завершенному объявлению. 
-                            ProfitPanel.Visibility = Visibility.Collapsed;
-
-                            // Пока поле не определено, оставляем пустым:
-                            ProfitBox.Text = string.Empty;
-                        }
                     }
                 }
                 else
@@ -189,22 +201,15 @@ namespace УП_2_по_ТРПО_Сервис_частных_объявлений
                 return false;
             }
 
-            // 3. Проверка поля "Полученная сумма" (только если статус "Завершено")
             if ((StatusBox.SelectedItem as Ad_Statuses)?.status_name == "Завершено")
             {
+                //поле "Полученная сумма"(только если статус "Завершено")
                 if (string.IsNullOrWhiteSpace(ProfitBox.Text) && !_isAdAlreadyCompleted)
                 {
                     MessageBox.Show("Для завершенного объявления необходимо указать полученную сумму.", "Ошибка валидации", MessageBoxButton.OK, MessageBoxImage.Warning);
                     return false;
                 }
 
-                if (_isAdAlreadyCompleted && !ProfitBox.IsEnabled)
-                {
-                    // Если объявление уже завершено и поле заблокировано, мы не берем значение из формы.
-                    // Для корректного сохранения мы должны получить его из БД, но у нас нет поля в Ads.
-                    // Поскольку поле заблокировано, сохранение не должно менять статус, 
-                    // и расчет прибыли не должен происходить, поэтому здесь мы можем пропустить проверку.
-                }
                 else
                 {
                     // Если объявление только переводится в статус "Завершено"
@@ -233,6 +238,50 @@ namespace УП_2_по_ТРПО_Сервис_частных_объявлений
             ad.category_id = (CategoryBox.SelectedItem as Categories).category_id;
             ad.ad_type_id = (TypeBox.SelectedItem as Ad_Types).type_id;
             ad.ad_status_id = (StatusBox.SelectedItem as Ad_Statuses).status_id;
+
+            if (!string.IsNullOrWhiteSpace(_selectedPhotoPath))
+            {
+                ad.ad_photo_path = _selectedPhotoPath;
+            }
+        }
+
+        private void SelectPhotoButton_Click(object sender, RoutedEventArgs e)
+        {
+            // Используем стандартный диалог Windows для выбора файла
+            Microsoft.Win32.OpenFileDialog openFileDialog = new Microsoft.Win32.OpenFileDialog
+            {
+                Filter = "Изображения|*.jpg;*.jpeg;*.png;*.bmp|Все файлы (*.*)|*.*",
+                Title = "Выберите фотографию для объявления"
+            };
+
+            if (openFileDialog.ShowDialog() == true)
+            {
+                try
+                {
+                    string appDirectory = AppDomain.CurrentDomain.BaseDirectory;
+                    string targetFolder = System.IO.Path.Combine(appDirectory, "ФотоКарточек");
+
+                    if (!System.IO.Directory.Exists(targetFolder))
+                    {
+                        System.IO.Directory.CreateDirectory(targetFolder);
+                    }
+
+                    string fileName = Guid.NewGuid().ToString() + System.IO.Path.GetExtension(openFileDialog.FileName);
+                    string targetPath = System.IO.Path.Combine(targetFolder, fileName);
+
+                    System.IO.File.Copy(openFileDialog.FileName, targetPath, true);
+
+                    _selectedPhotoPath = $"/ФотоКарточек/{fileName}";
+
+                    // 5. Показываем превью
+                    AdImagePreview.Source = new BitmapImage(new Uri(targetPath));
+                    PhotoTextBlock.Text = $"Фотография: {fileName}";
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show($"Ошибка при загрузке и сохранении файла: {ex.Message}", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
+            }
         }
 
         private void SaveButton_Click(object sender, RoutedEventArgs e)

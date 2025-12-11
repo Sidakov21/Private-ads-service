@@ -172,9 +172,6 @@
     <Resource Include="Фото\Лого.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="ФотоКарточек\a-house-with-a-white-fence-and-flowers-png.png" />
-    <Resource Include="ФотоКарточек\iPhone-13-PNG-Picture.png" />
-    <Resource Include="ФотоКарточек\sticker.png" />
     <Resource Include="Фото\Заглушка.jpg" />
     <Resource Include="Фото\Иконка.ico" />
   </ItemGroup>
