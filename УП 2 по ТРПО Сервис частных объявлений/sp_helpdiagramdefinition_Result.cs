@@ -10,22 +10,10 @@
 namespace УП_2_по_ТРПО_Сервис_частных_объявлений
 {
     using System;
-    using System.Collections.Generic;
     
-    public partial class Users
+    public partial class sp_helpdiagramdefinition_Result
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Users()
-        {
-            this.Ads = new HashSet<Ads>();
-        }
-    
-        public int user_id { get; set; }
-        public string user_login { get; set; }
-        public string user_password { get; set; }
-        public Nullable<decimal> profit { get; set; }
-    
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Ads> Ads { get; set; }
+        public Nullable<int> version { get; set; }
+        public byte[] definition { get; set; }
     }
 }

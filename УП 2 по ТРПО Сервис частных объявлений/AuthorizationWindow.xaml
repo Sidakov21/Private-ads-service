@@ -10,6 +10,18 @@
         Background="White"
         ResizeMode="NoResize"
         WindowStartupLocation="CenterScreen">
+
+    <Window.Resources>
+        <Style x:Key="SecondaryButtonStyle" TargetType="Button">
+            <Setter Property="Height" Value="38"/>
+            <Setter Property="Background" Value="#78909C"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="FontFamily" Value="Tw Cen MT"/>
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="Padding" Value="10"/>
+            <Setter Property="BorderThickness" Value="0"/>
+        </Style>
+    </Window.Resources>
     
     <Grid Margin="16">
         <StackPanel VerticalAlignment="Center" HorizontalAlignment="Stretch">
@@ -59,6 +71,11 @@
                     Padding="10"
                     BorderThickness="0"
                     Click="LoginButton_Click"/>
+
+            <Button Content="Гостевой вход"
+                    Style="{StaticResource SecondaryButtonStyle}"
+                    Click="GuestButton_Click"
+                    Margin="0 16 0 0"/>
 
         </StackPanel>
     </Grid>

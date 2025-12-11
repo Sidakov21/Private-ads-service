@@ -20,7 +20,7 @@ namespace УП_2_по_ТРПО_Сервис_частных_объявлений
             this.Ads = new HashSet<Ads>();
         }
     
-        public double type_id { get; set; }
+        public int type_id { get; set; }
         public string type_name { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

@@ -1,8 +1,7 @@
 ﻿<Application x:Class="УП_2_по_ТРПО_Сервис_частных_объявлений.App"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:local="clr-namespace:УП_2_по_ТРПО_Сервис_частных_объявлений"
-             StartupUri="AuthorizationWindow.xaml">
+             xmlns:local="clr-namespace:УП_2_по_ТРПО_Сервис_частных_объявлений">
     <Application.Resources>
         <Style x:Key="PlaceholderTextBoxStyle" TargetType="Grid">
             <Setter Property="Background" Value="Transparent"/>
@@ -32,6 +31,4 @@
             </Style.Triggers>
         </Style>
     </Application.Resources>
-    
-    
 </Application>

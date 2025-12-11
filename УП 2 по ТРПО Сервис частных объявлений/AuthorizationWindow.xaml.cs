@@ -20,6 +20,8 @@ namespace УП_2_по_ТРПО_Сервис_частных_объявлений
     /// </summary>
     public partial class AuthorizationWindow : Window
     {
+        private Sidakov_DB_PrivateAdsEntities1 _context = new Sidakov_DB_PrivateAdsEntities1();
+
         public AuthorizationWindow()
         {
             InitializeComponent();
@@ -36,30 +38,37 @@ namespace УП_2_по_ТРПО_Сервис_частных_объявлений
                 return;
             }
 
-            using (var db = new Sidakov_DB_PrivateAdsEntities())
+            try
             {
-                // Находим пользователя по логину и паролю
-                var user = db.Users.FirstOrDefault(u =>
+                var user = _context.Users.FirstOrDefault(u =>
                     u.user_login == login &&
-                    u.user_password == password
-                );
+                    u.user_password == password);
 
                 if (user != null)
                 {
-                    // Сохраняем ID пользователя в статический класс для доступа из других окон
-                    SessionManager.SetUser((int)user.user_id);
+                    SessionManager.SetUser(user.user_id);
 
-                    MainWindow mainWindow = new MainWindow();
-                    mainWindow.Show();
-
+                    MessageBox.Show($"Добро пожаловать, {user.user_login}!", "Успешный вход", MessageBoxButton.OK, MessageBoxImage.Information);
+                    this.DialogResult = true;
                     this.Close();
                 }
                 else
                 {
-                    MessageBox.Show("Неверный логин или пароль. Попробуйте снова.", "Ошибка авторизации", MessageBoxButton.OK, MessageBoxImage.Error);
-                    PasswordBox.Password = string.Empty;
+                    MessageBox.Show("Неверный логин или пароль.", "Ошибка авторизации", MessageBoxButton.OK, MessageBoxImage.Error);
                 }
             }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Ошибка подключения к базе данных: {ex.Message}", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+        }
+
+        private void GuestButton_Click(object sender, RoutedEventArgs e)
+        {
+            SessionManager.Logout();
+
+            this.DialogResult = true;
+            this.Close();
         }
     }
 }

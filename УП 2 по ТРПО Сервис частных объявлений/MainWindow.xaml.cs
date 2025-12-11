@@ -24,7 +24,7 @@ namespace УП_2_по_ТРПО_Сервис_частных_объявлений
     
     public partial class MainWindow : Window
     {
-        private Sidakov_DB_PrivateAdsEntities _context = new Sidakov_DB_PrivateAdsEntities();
+        private Sidakov_DB_PrivateAdsEntities1 _context = new Sidakov_DB_PrivateAdsEntities1();
 
         public MainWindow()
         {
@@ -37,22 +37,32 @@ namespace УП_2_по_ТРПО_Сервис_частных_объявлений
 
         private void LoadFilters()
         {
-            CityFilter.ItemsSource = _context.Cities.ToList();
-            CityFilter.DisplayMemberPath = "city_name";
+            try
+            {
 
-            CategoryFilter.ItemsSource = _context.Categories.ToList();
-            CategoryFilter.DisplayMemberPath = "category_name";
+                CityFilter.ItemsSource = _context.Cities.ToList();
+                CityFilter.DisplayMemberPath = "city_name";
 
-            TypeFilter.ItemsSource = _context.Ad_Types.ToList();
-            TypeFilter.DisplayMemberPath = "type_name";
+                CategoryFilter.ItemsSource = _context.Categories.ToList();
+                CategoryFilter.DisplayMemberPath = "category_name";
 
-            StatusFilter.ItemsSource = _context.Ad_Statuses.ToList();
-            StatusFilter.DisplayMemberPath = "status_name";
+                TypeFilter.ItemsSource = _context.Ad_Types.ToList();
+                TypeFilter.DisplayMemberPath = "type_name";
 
-            CityFilter.SelectedIndex = -1;
-            CategoryFilter.SelectedIndex = -1;
-            TypeFilter.SelectedIndex = -1;
-            StatusFilter.SelectedIndex = -1;
+                StatusFilter.ItemsSource = _context.Ad_Statuses.ToList();
+                StatusFilter.DisplayMemberPath = "status_name";
+
+                CityFilter.SelectedIndex = -1;
+                CategoryFilter.SelectedIndex = -1;
+                TypeFilter.SelectedIndex = -1;
+                StatusFilter.SelectedIndex = -1;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Ошибка загрузки фильтров (DB): {ex.Message}", "Ошибка инициализации БД", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+
+
         }
 
         private void UpdateUiForAuthorization()
@@ -62,6 +72,8 @@ namespace УП_2_по_ТРПО_Сервис_частных_объявлений
                 AddAdButton.Visibility = Visibility.Visible;
                 DeleteAdSelectedButton.Visibility = Visibility.Visible;
                 ShowMyAdsCheckBox.Visibility = Visibility.Visible;
+
+                AuthButton.Content = "Личный кабинет";
             }
             else
             {
@@ -69,12 +81,14 @@ namespace УП_2_по_ТРПО_Сервис_частных_объявлений
                 DeleteAdSelectedButton.Visibility = Visibility.Collapsed;
                 ShowMyAdsCheckBox.IsChecked = false;
                 ShowMyAdsCheckBox.Visibility = Visibility.Collapsed;
+
+                AuthButton.Content = "Войти";
             }
         }
 
         public void ApplyFiltersAndLoadAds()
         {
-            using (var db = new Sidakov_DB_PrivateAdsEntities())
+            using (var db = new Sidakov_DB_PrivateAdsEntities1())
             {
                 IQueryable<Ads> query = db.Ads
                     .Include(a => a.Cities)
@@ -263,6 +277,59 @@ namespace УП_2_по_ТРПО_Сервис_частных_объявлений
             editor.ShowDialog();
 
             ApplyFiltersAndLoadAds();
+        }
+
+        private void AuthButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (SessionManager.IsAuthorized)
+            {
+                MessageBoxResult result = MessageBox.Show(
+                    "Вы уверены, что хотите выйти из системы?",
+                    "Выход",
+                    MessageBoxButton.YesNo,
+                    MessageBoxImage.Question);
+
+                if (result == MessageBoxResult.Yes)
+                {
+                    SessionManager.Logout();
+
+                    this.Hide();
+
+                    // Открываем окно авторизации заново
+                    AuthorizationWindow loginWindow = new AuthorizationWindow();
+                    bool? dialogResult = loginWindow.ShowDialog();
+
+                    if (dialogResult == true)
+                    {
+                        UpdateUiForAuthorization();
+                        ApplyFiltersAndLoadAds();
+                        this.Show();
+                    }
+                    else
+                    {
+                        Application.Current.Shutdown();
+
+                    }
+                }
+            }
+            else
+            {
+                this.Hide();
+
+                AuthorizationWindow loginWindow = new AuthorizationWindow();
+                bool? dialogResult = loginWindow.ShowDialog();
+
+                if (dialogResult == true)
+                {
+                    UpdateUiForAuthorization();
+                    ApplyFiltersAndLoadAds();
+                    this.Show();
+                }
+                else
+                {
+                    Application.Current.Shutdown();
+                }
+            }
         }
     }
 }

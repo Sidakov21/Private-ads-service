@@ -4,7 +4,7 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="88d88dfe36884a0c81f15386eda0f463" Name="Diagram1">
+      <Diagram DiagramId="6e2dc8f364bd48fd84dde4d720e70c18" Name="Diagram1">
         <EntityTypeShape EntityType="Sidakov_DB_PrivateAdsModel.Ad_Statuses" Width="1.5" PointX="0.75" PointY="2.25" IsExpanded="true" />
         <EntityTypeShape EntityType="Sidakov_DB_PrivateAdsModel.Ad_Types" Width="1.5" PointX="0.75" PointY="5.375" IsExpanded="true" />
         <EntityTypeShape EntityType="Sidakov_DB_PrivateAdsModel.Ads" Width="1.5" PointX="3" PointY="1" IsExpanded="true" />

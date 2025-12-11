@@ -14,15 +14,15 @@ namespace УП_2_по_ТРПО_Сервис_частных_объявлений
     
     public partial class Ads
     {
-        public double ad_id { get; set; }
-        public Nullable<double> user_id { get; set; }
+        public int ad_id { get; set; }
+        public int user_id { get; set; }
         public string ad_title { get; set; }
         public string ad_description { get; set; }
         public Nullable<System.DateTime> ad_post_date { get; set; }
-        public Nullable<double> city_id { get; set; }
-        public Nullable<double> category_id { get; set; }
-        public Nullable<double> ad_type_id { get; set; }
-        public Nullable<double> ad_status_id { get; set; }
+        public int city_id { get; set; }
+        public int category_id { get; set; }
+        public int ad_type_id { get; set; }
+        public int ad_status_id { get; set; }
         public Nullable<double> price { get; set; }
         public string ad_photo_path { get; set; }
     

@@ -14,16 +14,40 @@
             <RowDefinition/>
         </Grid.RowDefinitions>
 
-        <StackPanel Orientation="Horizontal" Margin="0 0 0 16">
-            <Image Source="/Фото/Лого.png" Height="50"/>
-            <TextBlock Text="Сервис частных объявлений"
-                       FontFamily="Tw Cen MT"
-                       FontSize="24"
-                       FontWeight="Bold"
-                       Foreground="#37474F"
-                       VerticalAlignment="Center"
-                       Margin="16 0 0 0"/>
-        </StackPanel>
+        <Grid Grid.Row="0" Margin="0 0 0 16">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+
+            <StackPanel Orientation="Horizontal" Grid.Column="0">
+                <Image Source="/Фото/Лого.png" Height="50"/>
+                <TextBlock Text="Сервис частных объявлений"
+                   FontFamily="Tw Cen MT"
+                   FontSize="24"
+                   FontWeight="Bold"
+                   Foreground="#37474F"
+                   VerticalAlignment="Center"
+                   Margin="16 0 0 0"/>
+            </StackPanel>
+
+            <Button x:Name="AuthButton"
+            Grid.Column="2"
+            Height="38"
+            Padding="10"
+            Background="#FF9C1A"
+            Foreground="White"
+            FontFamily="Tw Cen MT"
+            FontSize="14"
+            BorderThickness="0"
+            Content="Личный кабинет"
+            Click="AuthButton_Click"
+            HorizontalAlignment="Right"
+            VerticalAlignment="Center"/>
+        </Grid>
+
+
 
         <StackPanel Orientation="Horizontal" Margin="0 0 0 16" Grid.Row="1" Height="38">
             <Grid Width="250" Margin="0 0 16 0" Height="38">

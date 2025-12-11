@@ -22,7 +22,7 @@ namespace УП_2_по_ТРПО_Сервис_частных_объявлений
     public partial class AdEditorWindow : Window
     {
         private readonly int? _adId; 
-        private Sidakov_DB_PrivateAdsEntities _context = new Sidakov_DB_PrivateAdsEntities();
+        private Sidakov_DB_PrivateAdsEntities1 _context = new Sidakov_DB_PrivateAdsEntities1();
 
         private Ad_Statuses _originalAdStatus;
         private bool _isAdAlreadyCompleted = false;

@@ -9,29 +9,29 @@
           <Key>
             <PropertyRef Name="status_id" />
           </Key>
-          <Property Name="status_id" Type="float" Nullable="false" />
+          <Property Name="status_id" Type="int" Nullable="false" />
           <Property Name="status_name" Type="nvarchar" MaxLength="255" />
         </EntityType>
         <EntityType Name="Ad_Types">
           <Key>
             <PropertyRef Name="type_id" />
           </Key>
-          <Property Name="type_id" Type="float" Nullable="false" />
+          <Property Name="type_id" Type="int" Nullable="false" />
           <Property Name="type_name" Type="nvarchar" MaxLength="255" />
         </EntityType>
         <EntityType Name="Ads">
           <Key>
             <PropertyRef Name="ad_id" />
           </Key>
-          <Property Name="ad_id" Type="float" Nullable="false" />
-          <Property Name="user_id" Type="float" />
+          <Property Name="ad_id" Type="int" Nullable="false" />
+          <Property Name="user_id" Type="int" Nullable="false" />
           <Property Name="ad_title" Type="nvarchar" MaxLength="255" />
           <Property Name="ad_description" Type="nvarchar" MaxLength="255" />
           <Property Name="ad_post_date" Type="datetime" />
-          <Property Name="city_id" Type="float" />
-          <Property Name="category_id" Type="float" />
-          <Property Name="ad_type_id" Type="float" />
-          <Property Name="ad_status_id" Type="float" />
+          <Property Name="city_id" Type="int" Nullable="false" />
+          <Property Name="category_id" Type="int" Nullable="false" />
+          <Property Name="ad_type_id" Type="int" Nullable="false" />
+          <Property Name="ad_status_id" Type="int" Nullable="false" />
           <Property Name="price" Type="float" />
           <Property Name="ad_photo_path" Type="nvarchar" MaxLength="500" />
         </EntityType>
@@ -39,14 +39,14 @@
           <Key>
             <PropertyRef Name="category_id" />
           </Key>
-          <Property Name="category_id" Type="float" Nullable="false" />
+          <Property Name="category_id" Type="int" Nullable="false" />
           <Property Name="category_name" Type="nvarchar" MaxLength="255" />
         </EntityType>
         <EntityType Name="Cities">
           <Key>
             <PropertyRef Name="city_id" />
           </Key>
-          <Property Name="city_id" Type="float" Nullable="false" />
+          <Property Name="city_id" Type="int" Nullable="false" />
           <Property Name="city_name" Type="nvarchar" MaxLength="255" />
         </EntityType>
         <EntityType Name="sysdiagrams">
@@ -63,13 +63,13 @@
           <Key>
             <PropertyRef Name="user_id" />
           </Key>
-          <Property Name="user_id" Type="float" Nullable="false" />
+          <Property Name="user_id" Type="int" Nullable="false" />
           <Property Name="user_login" Type="nvarchar" MaxLength="255" />
           <Property Name="user_password" Type="nvarchar" MaxLength="255" />
-          <Property Name="profit" Type="int" />
+          <Property Name="profit" Type="decimal" Precision="12" Scale="2" />
         </EntityType>
         <Association Name="FK_Ads_Categories">
-          <End Role="Categories" Type="Self.Categories" Multiplicity="0..1" />
+          <End Role="Categories" Type="Self.Categories" Multiplicity="1" />
           <End Role="Ads" Type="Self.Ads" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Categories">
@@ -81,7 +81,7 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Ads_Cities">
-          <End Role="Cities" Type="Self.Cities" Multiplicity="0..1" />
+          <End Role="Cities" Type="Self.Cities" Multiplicity="1" />
           <End Role="Ads" Type="Self.Ads" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Cities">
@@ -93,7 +93,7 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Ads_Statuses">
-          <End Role="Ad_Statuses" Type="Self.Ad_Statuses" Multiplicity="0..1" />
+          <End Role="Ad_Statuses" Type="Self.Ad_Statuses" Multiplicity="1" />
           <End Role="Ads" Type="Self.Ads" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Ad_Statuses">
@@ -105,7 +105,7 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Ads_Types">
-          <End Role="Ad_Types" Type="Self.Ad_Types" Multiplicity="0..1" />
+          <End Role="Ad_Types" Type="Self.Ad_Types" Multiplicity="1" />
           <End Role="Ads" Type="Self.Ads" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Ad_Types">
@@ -117,7 +117,7 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Ads_Users">
-          <End Role="Users" Type="Self.Users" Multiplicity="0..1" />
+          <End Role="Users" Type="Self.Users" Multiplicity="1" />
           <End Role="Ads" Type="Self.Ads" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Users">
@@ -128,6 +128,37 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Function Name="fn_diagramobjects" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" ReturnType="int" />
+        <Function Name="sp_alterdiagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+          <Parameter Name="owner_id" Type="int" Mode="In" />
+          <Parameter Name="version" Type="int" Mode="In" />
+          <Parameter Name="definition" Type="varbinary(max)" Mode="In" />
+        </Function>
+        <Function Name="sp_creatediagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+          <Parameter Name="owner_id" Type="int" Mode="In" />
+          <Parameter Name="version" Type="int" Mode="In" />
+          <Parameter Name="definition" Type="varbinary(max)" Mode="In" />
+        </Function>
+        <Function Name="sp_dropdiagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+          <Parameter Name="owner_id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="sp_helpdiagramdefinition" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+          <Parameter Name="owner_id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="sp_helpdiagrams" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+          <Parameter Name="owner_id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="sp_renamediagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+          <Parameter Name="owner_id" Type="int" Mode="In" />
+          <Parameter Name="new_diagramname" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="sp_upgraddiagrams" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <EntityContainer Name="Хранилище Sidakov_DB_PrivateAdsModelContainer">
           <EntitySet Name="Ad_Statuses" EntityType="Self.Ad_Statuses" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Ad_Types" EntityType="Self.Ad_Types" Schema="dbo" store:Type="Tables" />
@@ -166,7 +197,7 @@
           <Key>
             <PropertyRef Name="status_id" />
           </Key>
-          <Property Name="status_id" Type="Double" Nullable="false" />
+          <Property Name="status_id" Type="Int32" Nullable="false" />
           <Property Name="status_name" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="Ads" Relationship="Self.FK_Ads_Statuses" FromRole="Ad_Statuses" ToRole="Ads" />
         </EntityType>
@@ -174,7 +205,7 @@
           <Key>
             <PropertyRef Name="type_id" />
           </Key>
-          <Property Name="type_id" Type="Double" Nullable="false" />
+          <Property Name="type_id" Type="Int32" Nullable="false" />
           <Property Name="type_name" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="Ads" Relationship="Self.FK_Ads_Types" FromRole="Ad_Types" ToRole="Ads" />
         </EntityType>
@@ -182,15 +213,15 @@
           <Key>
             <PropertyRef Name="ad_id" />
           </Key>
-          <Property Name="ad_id" Type="Double" Nullable="false" />
-          <Property Name="user_id" Type="Double" />
+          <Property Name="ad_id" Type="Int32" Nullable="false" />
+          <Property Name="user_id" Type="Int32" Nullable="false" />
           <Property Name="ad_title" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
           <Property Name="ad_description" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
           <Property Name="ad_post_date" Type="DateTime" Precision="3" />
-          <Property Name="city_id" Type="Double" />
-          <Property Name="category_id" Type="Double" />
-          <Property Name="ad_type_id" Type="Double" />
-          <Property Name="ad_status_id" Type="Double" />
+          <Property Name="city_id" Type="Int32" Nullable="false" />
+          <Property Name="category_id" Type="Int32" Nullable="false" />
+          <Property Name="ad_type_id" Type="Int32" Nullable="false" />
+          <Property Name="ad_status_id" Type="Int32" Nullable="false" />
           <Property Name="price" Type="Double" />
           <Property Name="ad_photo_path" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="Ad_Statuses" Relationship="Self.FK_Ads_Statuses" FromRole="Ads" ToRole="Ad_Statuses" />
@@ -203,7 +234,7 @@
           <Key>
             <PropertyRef Name="category_id" />
           </Key>
-          <Property Name="category_id" Type="Double" Nullable="false" />
+          <Property Name="category_id" Type="Int32" Nullable="false" />
           <Property Name="category_name" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="Ads" Relationship="Self.FK_Ads_Categories" FromRole="Categories" ToRole="Ads" />
         </EntityType>
@@ -211,7 +242,7 @@
           <Key>
             <PropertyRef Name="city_id" />
           </Key>
-          <Property Name="city_id" Type="Double" Nullable="false" />
+          <Property Name="city_id" Type="Int32" Nullable="false" />
           <Property Name="city_name" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="Ads" Relationship="Self.FK_Ads_Cities" FromRole="Cities" ToRole="Ads" />
         </EntityType>
@@ -229,14 +260,14 @@
           <Key>
             <PropertyRef Name="user_id" />
           </Key>
-          <Property Name="user_id" Type="Double" Nullable="false" />
+          <Property Name="user_id" Type="Int32" Nullable="false" />
           <Property Name="user_login" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
           <Property Name="user_password" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
-          <Property Name="profit" Type="Int32" />
+          <Property Name="profit" Type="Decimal" Precision="12" Scale="2" />
           <NavigationProperty Name="Ads" Relationship="Self.FK_Ads_Users" FromRole="Users" ToRole="Ads" />
         </EntityType>
         <Association Name="FK_Ads_Statuses">
-          <End Role="Ad_Statuses" Type="Self.Ad_Statuses" Multiplicity="0..1" />
+          <End Role="Ad_Statuses" Type="Self.Ad_Statuses" Multiplicity="1" />
           <End Role="Ads" Type="Self.Ads" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Ad_Statuses">
@@ -248,7 +279,7 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Ads_Types">
-          <End Role="Ad_Types" Type="Self.Ad_Types" Multiplicity="0..1" />
+          <End Role="Ad_Types" Type="Self.Ad_Types" Multiplicity="1" />
           <End Role="Ads" Type="Self.Ads" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Ad_Types">
@@ -260,7 +291,7 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Ads_Categories">
-          <End Role="Categories" Type="Self.Categories" Multiplicity="0..1" />
+          <End Role="Categories" Type="Self.Categories" Multiplicity="1" />
           <End Role="Ads" Type="Self.Ads" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Categories">
@@ -272,7 +303,7 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Ads_Cities">
-          <End Role="Cities" Type="Self.Cities" Multiplicity="0..1" />
+          <End Role="Cities" Type="Self.Cities" Multiplicity="1" />
           <End Role="Ads" Type="Self.Ads" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Cities">
@@ -284,7 +315,7 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Ads_Users">
-          <End Role="Users" Type="Self.Users" Multiplicity="0..1" />
+          <End Role="Users" Type="Self.Users" Multiplicity="1" />
           <End Role="Ads" Type="Self.Ads" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Users">
@@ -295,7 +326,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityContainer Name="Sidakov_DB_PrivateAdsEntities" annotation:LazyLoadingEnabled="true">
+        <EntityContainer Name="Sidakov_DB_PrivateAdsEntities1" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="Ad_Statuses" EntityType="Self.Ad_Statuses" />
           <EntitySet Name="Ad_Types" EntityType="Self.Ad_Types" />
           <EntitySet Name="Ads" EntityType="Self.Ads" />
@@ -323,13 +354,54 @@
             <End Role="Users" EntitySet="Users" />
             <End Role="Ads" EntitySet="Ads" />
           </AssociationSet>
+          <FunctionImport Name="sp_alterdiagram">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+            <Parameter Name="version" Mode="In" Type="Int32" />
+            <Parameter Name="definition" Mode="In" Type="Binary" />
+          </FunctionImport>
+          <FunctionImport Name="sp_creatediagram">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+            <Parameter Name="version" Mode="In" Type="Int32" />
+            <Parameter Name="definition" Mode="In" Type="Binary" />
+          </FunctionImport>
+          <FunctionImport Name="sp_dropdiagram">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sp_helpdiagramdefinition" ReturnType="Collection(Sidakov_DB_PrivateAdsModel.sp_helpdiagramdefinition_Result)">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sp_helpdiagrams" ReturnType="Collection(Sidakov_DB_PrivateAdsModel.sp_helpdiagrams_Result)">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sp_renamediagram">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+            <Parameter Name="new_diagramname" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="sp_upgraddiagrams" />
         </EntityContainer>
+        <ComplexType Name="sp_helpdiagramdefinition_Result">
+          <Property Type="Int32" Name="version" Nullable="true" />
+          <Property Type="Binary" Name="definition" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="sp_helpdiagrams_Result">
+          <Property Type="String" Name="Database" Nullable="true" MaxLength="128" />
+          <Property Type="String" Name="Name" Nullable="false" MaxLength="128" />
+          <Property Type="Int32" Name="ID" Nullable="false" />
+          <Property Type="String" Name="Owner" Nullable="true" MaxLength="128" />
+          <Property Type="Int32" Name="OwnerID" Nullable="false" />
+        </ComplexType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="Хранилище Sidakov_DB_PrivateAdsModelContainer" CdmEntityContainer="Sidakov_DB_PrivateAdsEntities">
+        <EntityContainerMapping StorageEntityContainer="Хранилище Sidakov_DB_PrivateAdsModelContainer" CdmEntityContainer="Sidakov_DB_PrivateAdsEntities1">
           <EntitySetMapping Name="Ad_Statuses">
             <EntityTypeMapping TypeName="Sidakov_DB_PrivateAdsModel.Ad_Statuses">
               <MappingFragment StoreEntitySet="Ad_Statuses">
@@ -400,6 +472,30 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="sp_alterdiagram" FunctionName="Хранилище Sidakov_DB_PrivateAdsModel.sp_alterdiagram" />
+          <FunctionImportMapping FunctionImportName="sp_creatediagram" FunctionName="Хранилище Sidakov_DB_PrivateAdsModel.sp_creatediagram" />
+          <FunctionImportMapping FunctionImportName="sp_dropdiagram" FunctionName="Хранилище Sidakov_DB_PrivateAdsModel.sp_dropdiagram" />
+          <FunctionImportMapping FunctionImportName="sp_helpdiagramdefinition" FunctionName="Хранилище Sidakov_DB_PrivateAdsModel.sp_helpdiagramdefinition">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="Sidakov_DB_PrivateAdsModel.sp_helpdiagramdefinition_Result">
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="definition" ColumnName="definition" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_helpdiagrams" FunctionName="Хранилище Sidakov_DB_PrivateAdsModel.sp_helpdiagrams">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="Sidakov_DB_PrivateAdsModel.sp_helpdiagrams_Result">
+                <ScalarProperty Name="Database" ColumnName="Database" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Owner" ColumnName="Owner" />
+                <ScalarProperty Name="OwnerID" ColumnName="OwnerID" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_renamediagram" FunctionName="Хранилище Sidakov_DB_PrivateAdsModel.sp_renamediagram" />
+          <FunctionImportMapping FunctionImportName="sp_upgraddiagrams" FunctionName="Хранилище Sidakov_DB_PrivateAdsModel.sp_upgraddiagrams" />
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
