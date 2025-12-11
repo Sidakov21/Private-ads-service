@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="Хранилище Sidakov_DB_PrivateAdsModel" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+      <Schema Namespace="Хранилище Sidakov_DB_PrivateAds_TESTModel" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Ad_Statuses">
           <Key>
             <PropertyRef Name="status_id" />
@@ -159,7 +159,7 @@
           <Parameter Name="new_diagramname" Type="nvarchar" Mode="In" />
         </Function>
         <Function Name="sp_upgraddiagrams" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
-        <EntityContainer Name="Хранилище Sidakov_DB_PrivateAdsModelContainer">
+        <EntityContainer Name="Хранилище Sidakov_DB_PrivateAds_TESTModelContainer">
           <EntitySet Name="Ad_Statuses" EntityType="Self.Ad_Statuses" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Ad_Types" EntityType="Self.Ad_Types" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Ads" EntityType="Self.Ads" Schema="dbo" store:Type="Tables" />
@@ -192,7 +192,7 @@
     </edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
-      <Schema Namespace="Sidakov_DB_PrivateAdsModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+      <Schema Namespace="Sidakov_DB_PrivateAds_TESTModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
         <EntityType Name="Ad_Statuses">
           <Key>
             <PropertyRef Name="status_id" />
@@ -326,7 +326,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityContainer Name="Sidakov_DB_PrivateAdsEntities1" annotation:LazyLoadingEnabled="true">
+        <EntityContainer Name="Sidakov_DB_PrivateAds_TESTEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="Ad_Statuses" EntityType="Self.Ad_Statuses" />
           <EntitySet Name="Ad_Types" EntityType="Self.Ad_Types" />
           <EntitySet Name="Ads" EntityType="Self.Ads" />
@@ -370,11 +370,11 @@
             <Parameter Name="diagramname" Mode="In" Type="String" />
             <Parameter Name="owner_id" Mode="In" Type="Int32" />
           </FunctionImport>
-          <FunctionImport Name="sp_helpdiagramdefinition" ReturnType="Collection(Sidakov_DB_PrivateAdsModel.sp_helpdiagramdefinition_Result)">
+          <FunctionImport Name="sp_helpdiagramdefinition" ReturnType="Collection(Sidakov_DB_PrivateAds_TESTModel.sp_helpdiagramdefinition_Result)">
             <Parameter Name="diagramname" Mode="In" Type="String" />
             <Parameter Name="owner_id" Mode="In" Type="Int32" />
           </FunctionImport>
-          <FunctionImport Name="sp_helpdiagrams" ReturnType="Collection(Sidakov_DB_PrivateAdsModel.sp_helpdiagrams_Result)">
+          <FunctionImport Name="sp_helpdiagrams" ReturnType="Collection(Sidakov_DB_PrivateAds_TESTModel.sp_helpdiagrams_Result)">
             <Parameter Name="diagramname" Mode="In" Type="String" />
             <Parameter Name="owner_id" Mode="In" Type="Int32" />
           </FunctionImport>
@@ -401,9 +401,9 @@
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="Хранилище Sidakov_DB_PrivateAdsModelContainer" CdmEntityContainer="Sidakov_DB_PrivateAdsEntities1">
+        <EntityContainerMapping StorageEntityContainer="Хранилище Sidakov_DB_PrivateAds_TESTModelContainer" CdmEntityContainer="Sidakov_DB_PrivateAds_TESTEntities">
           <EntitySetMapping Name="Ad_Statuses">
-            <EntityTypeMapping TypeName="Sidakov_DB_PrivateAdsModel.Ad_Statuses">
+            <EntityTypeMapping TypeName="Sidakov_DB_PrivateAds_TESTModel.Ad_Statuses">
               <MappingFragment StoreEntitySet="Ad_Statuses">
                 <ScalarProperty Name="status_id" ColumnName="status_id" />
                 <ScalarProperty Name="status_name" ColumnName="status_name" />
@@ -411,7 +411,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Ad_Types">
-            <EntityTypeMapping TypeName="Sidakov_DB_PrivateAdsModel.Ad_Types">
+            <EntityTypeMapping TypeName="Sidakov_DB_PrivateAds_TESTModel.Ad_Types">
               <MappingFragment StoreEntitySet="Ad_Types">
                 <ScalarProperty Name="type_id" ColumnName="type_id" />
                 <ScalarProperty Name="type_name" ColumnName="type_name" />
@@ -419,7 +419,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Ads">
-            <EntityTypeMapping TypeName="Sidakov_DB_PrivateAdsModel.Ads">
+            <EntityTypeMapping TypeName="Sidakov_DB_PrivateAds_TESTModel.Ads">
               <MappingFragment StoreEntitySet="Ads">
                 <ScalarProperty Name="ad_id" ColumnName="ad_id" />
                 <ScalarProperty Name="user_id" ColumnName="user_id" />
@@ -436,7 +436,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Categories">
-            <EntityTypeMapping TypeName="Sidakov_DB_PrivateAdsModel.Categories">
+            <EntityTypeMapping TypeName="Sidakov_DB_PrivateAds_TESTModel.Categories">
               <MappingFragment StoreEntitySet="Categories">
                 <ScalarProperty Name="category_id" ColumnName="category_id" />
                 <ScalarProperty Name="category_name" ColumnName="category_name" />
@@ -444,7 +444,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Cities">
-            <EntityTypeMapping TypeName="Sidakov_DB_PrivateAdsModel.Cities">
+            <EntityTypeMapping TypeName="Sidakov_DB_PrivateAds_TESTModel.Cities">
               <MappingFragment StoreEntitySet="Cities">
                 <ScalarProperty Name="city_id" ColumnName="city_id" />
                 <ScalarProperty Name="city_name" ColumnName="city_name" />
@@ -452,7 +452,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="sysdiagrams">
-            <EntityTypeMapping TypeName="Sidakov_DB_PrivateAdsModel.sysdiagrams">
+            <EntityTypeMapping TypeName="Sidakov_DB_PrivateAds_TESTModel.sysdiagrams">
               <MappingFragment StoreEntitySet="sysdiagrams">
                 <ScalarProperty Name="name" ColumnName="name" />
                 <ScalarProperty Name="principal_id" ColumnName="principal_id" />
@@ -463,7 +463,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Users">
-            <EntityTypeMapping TypeName="Sidakov_DB_PrivateAdsModel.Users">
+            <EntityTypeMapping TypeName="Sidakov_DB_PrivateAds_TESTModel.Users">
               <MappingFragment StoreEntitySet="Users">
                 <ScalarProperty Name="user_id" ColumnName="user_id" />
                 <ScalarProperty Name="user_login" ColumnName="user_login" />
@@ -472,20 +472,20 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <FunctionImportMapping FunctionImportName="sp_alterdiagram" FunctionName="Хранилище Sidakov_DB_PrivateAdsModel.sp_alterdiagram" />
-          <FunctionImportMapping FunctionImportName="sp_creatediagram" FunctionName="Хранилище Sidakov_DB_PrivateAdsModel.sp_creatediagram" />
-          <FunctionImportMapping FunctionImportName="sp_dropdiagram" FunctionName="Хранилище Sidakov_DB_PrivateAdsModel.sp_dropdiagram" />
-          <FunctionImportMapping FunctionImportName="sp_helpdiagramdefinition" FunctionName="Хранилище Sidakov_DB_PrivateAdsModel.sp_helpdiagramdefinition">
+          <FunctionImportMapping FunctionImportName="sp_alterdiagram" FunctionName="Хранилище Sidakov_DB_PrivateAds_TESTModel.sp_alterdiagram" />
+          <FunctionImportMapping FunctionImportName="sp_creatediagram" FunctionName="Хранилище Sidakov_DB_PrivateAds_TESTModel.sp_creatediagram" />
+          <FunctionImportMapping FunctionImportName="sp_dropdiagram" FunctionName="Хранилище Sidakov_DB_PrivateAds_TESTModel.sp_dropdiagram" />
+          <FunctionImportMapping FunctionImportName="sp_helpdiagramdefinition" FunctionName="Хранилище Sidakov_DB_PrivateAds_TESTModel.sp_helpdiagramdefinition">
             <ResultMapping>
-              <ComplexTypeMapping TypeName="Sidakov_DB_PrivateAdsModel.sp_helpdiagramdefinition_Result">
+              <ComplexTypeMapping TypeName="Sidakov_DB_PrivateAds_TESTModel.sp_helpdiagramdefinition_Result">
                 <ScalarProperty Name="version" ColumnName="version" />
                 <ScalarProperty Name="definition" ColumnName="definition" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
-          <FunctionImportMapping FunctionImportName="sp_helpdiagrams" FunctionName="Хранилище Sidakov_DB_PrivateAdsModel.sp_helpdiagrams">
+          <FunctionImportMapping FunctionImportName="sp_helpdiagrams" FunctionName="Хранилище Sidakov_DB_PrivateAds_TESTModel.sp_helpdiagrams">
             <ResultMapping>
-              <ComplexTypeMapping TypeName="Sidakov_DB_PrivateAdsModel.sp_helpdiagrams_Result">
+              <ComplexTypeMapping TypeName="Sidakov_DB_PrivateAds_TESTModel.sp_helpdiagrams_Result">
                 <ScalarProperty Name="Database" ColumnName="Database" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
@@ -494,8 +494,8 @@
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
-          <FunctionImportMapping FunctionImportName="sp_renamediagram" FunctionName="Хранилище Sidakov_DB_PrivateAdsModel.sp_renamediagram" />
-          <FunctionImportMapping FunctionImportName="sp_upgraddiagrams" FunctionName="Хранилище Sidakov_DB_PrivateAdsModel.sp_upgraddiagrams" />
+          <FunctionImportMapping FunctionImportName="sp_renamediagram" FunctionName="Хранилище Sidakov_DB_PrivateAds_TESTModel.sp_renamediagram" />
+          <FunctionImportMapping FunctionImportName="sp_upgraddiagrams" FunctionName="Хранилище Sidakov_DB_PrivateAds_TESTModel.sp_upgraddiagrams" />
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

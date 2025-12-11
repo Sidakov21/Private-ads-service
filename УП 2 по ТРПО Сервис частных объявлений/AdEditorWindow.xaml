@@ -101,8 +101,8 @@
                             Content="Выбрать фотографию"
                             Style="{StaticResource SecondaryButtonStyle}"
                             Click="SelectPhotoButton_Click"
-                            Height="30"
-                            Margin="0 0 0 4"/>
+                            Height="35"
+                            Margin="0 0 0 5"/>
 
                     <TextBlock x:Name="PhotoTextBlock"
                                Text="Фото не выбрано. (Обязательно для нового объявления)" 

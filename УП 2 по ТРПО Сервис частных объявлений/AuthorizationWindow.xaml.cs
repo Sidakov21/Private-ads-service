@@ -20,7 +20,7 @@ namespace УП_2_по_ТРПО_Сервис_частных_объявлений
     /// </summary>
     public partial class AuthorizationWindow : Window
     {
-        private Sidakov_DB_PrivateAdsEntities1 _context = new Sidakov_DB_PrivateAdsEntities1();
+        private Sidakov_DB_PrivateAds_TESTEntities _context = new Sidakov_DB_PrivateAds_TESTEntities();
 
         public AuthorizationWindow()
         {

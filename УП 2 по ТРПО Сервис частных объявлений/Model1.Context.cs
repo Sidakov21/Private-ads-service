@@ -15,10 +15,10 @@ namespace УП_2_по_ТРПО_Сервис_частных_объявлений
     using System.Data.Entity.Core.Objects;
     using System.Linq;
     
-    public partial class Sidakov_DB_PrivateAdsEntities1 : DbContext
+    public partial class Sidakov_DB_PrivateAds_TESTEntities : DbContext
     {
-        public Sidakov_DB_PrivateAdsEntities1()
-            : base("name=Sidakov_DB_PrivateAdsEntities1")
+        public Sidakov_DB_PrivateAds_TESTEntities()
+            : base("name=Sidakov_DB_PrivateAds_TESTEntities")
         {
         }
     

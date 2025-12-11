@@ -4,19 +4,19 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="6e2dc8f364bd48fd84dde4d720e70c18" Name="Diagram1">
-        <EntityTypeShape EntityType="Sidakov_DB_PrivateAdsModel.Ad_Statuses" Width="1.5" PointX="0.75" PointY="2.25" IsExpanded="true" />
-        <EntityTypeShape EntityType="Sidakov_DB_PrivateAdsModel.Ad_Types" Width="1.5" PointX="0.75" PointY="5.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="Sidakov_DB_PrivateAdsModel.Ads" Width="1.5" PointX="3" PointY="1" IsExpanded="true" />
-        <EntityTypeShape EntityType="Sidakov_DB_PrivateAdsModel.Categories" Width="1.5" PointX="0.75" PointY="7.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="Sidakov_DB_PrivateAdsModel.Cities" Width="1.5" PointX="0.75" PointY="10.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="Sidakov_DB_PrivateAdsModel.sysdiagrams" Width="1.5" PointX="5.75" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="Sidakov_DB_PrivateAdsModel.Users" Width="1.5" PointX="0.75" PointY="12.5" IsExpanded="true" />
-        <AssociationConnector Association="Sidakov_DB_PrivateAdsModel.FK_Ads_Statuses" ManuallyRouted="false" />
-        <AssociationConnector Association="Sidakov_DB_PrivateAdsModel.FK_Ads_Types" ManuallyRouted="false" />
-        <AssociationConnector Association="Sidakov_DB_PrivateAdsModel.FK_Ads_Categories" ManuallyRouted="false" />
-        <AssociationConnector Association="Sidakov_DB_PrivateAdsModel.FK_Ads_Cities" ManuallyRouted="false" />
-        <AssociationConnector Association="Sidakov_DB_PrivateAdsModel.FK_Ads_Users" ManuallyRouted="false" />
+      <Diagram DiagramId="873b8a99bd39400797ef9cf7d019db4e" Name="Diagram1">
+        <EntityTypeShape EntityType="Sidakov_DB_PrivateAds_TESTModel.Ad_Statuses" Width="1.5" PointX="0.75" PointY="2.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="Sidakov_DB_PrivateAds_TESTModel.Ad_Types" Width="1.5" PointX="0.75" PointY="5.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="Sidakov_DB_PrivateAds_TESTModel.Ads" Width="1.5" PointX="3" PointY="1" IsExpanded="true" />
+        <EntityTypeShape EntityType="Sidakov_DB_PrivateAds_TESTModel.Categories" Width="1.5" PointX="0.75" PointY="7.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="Sidakov_DB_PrivateAds_TESTModel.Cities" Width="1.5" PointX="0.75" PointY="10.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="Sidakov_DB_PrivateAds_TESTModel.sysdiagrams" Width="1.5" PointX="5.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="Sidakov_DB_PrivateAds_TESTModel.Users" Width="1.5" PointX="0.75" PointY="12.5" IsExpanded="true" />
+        <AssociationConnector Association="Sidakov_DB_PrivateAds_TESTModel.FK_Ads_Statuses" ManuallyRouted="false" />
+        <AssociationConnector Association="Sidakov_DB_PrivateAds_TESTModel.FK_Ads_Types" ManuallyRouted="false" />
+        <AssociationConnector Association="Sidakov_DB_PrivateAds_TESTModel.FK_Ads_Categories" ManuallyRouted="false" />
+        <AssociationConnector Association="Sidakov_DB_PrivateAds_TESTModel.FK_Ads_Cities" ManuallyRouted="false" />
+        <AssociationConnector Association="Sidakov_DB_PrivateAds_TESTModel.FK_Ads_Users" ManuallyRouted="false" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
