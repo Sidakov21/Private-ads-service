@@ -1,0 +1,148 @@
+﻿<Window x:Class="УП_2_по_ТРПО_Сервис_частных_объявлений.AdEditorWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:УП_2_по_ТРПО_Сервис_частных_объявлений"
+        Title="Добавление объявления" 
+        Height="650" Width="800"
+        Background="White"
+        WindowStartupLocation="CenterScreen"
+        Icon="/Фото/Иконка.ico">
+
+    <Window.Resources>
+        <Style x:Key="LabelStyle" TargetType="TextBlock">
+            <Setter Property="FontFamily" Value="Tw Cen MT"/>
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="Foreground" Value="#37474F"/>
+            <Setter Property="Margin" Value="0 0 0 4"/>
+        </Style>
+
+        <Style x:Key="InputBoxStyle" TargetType="TextBox">
+            <Setter Property="Height" Value="38"/>
+            <Setter Property="Padding" Value="10"/>
+            <Setter Property="FontFamily" Value="Tw Cen MT"/>
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="Margin" Value="0 0 0 16"/>
+        </Style>
+
+        <Style x:Key="ComboBoxStyle" TargetType="ComboBox">
+            <Setter Property="Height" Value="38"/>
+            <Setter Property="Padding" Value="10"/>
+            <Setter Property="FontFamily" Value="Tw Cen MT"/>
+            <Setter Property="FontSize" Value="14"/>
+        </Style>
+
+        <Style x:Key="PrimaryButtonStyle" TargetType="Button">
+            <Setter Property="Height" Value="38"/>
+            <Setter Property="Background" Value="#FF9C1A"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="FontFamily" Value="Tw Cen MT"/>
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="Padding" Value="10"/>
+            <Setter Property="BorderThickness" Value="0"/>
+        </Style>
+
+        <Style x:Key="SecondaryButtonStyle" TargetType="Button">
+            <Setter Property="Height" Value="38"/>
+            <Setter Property="Background" Value="#78909C"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="FontFamily" Value="Tw Cen MT"/>
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="Padding" Value="10"/>
+            <Setter Property="BorderThickness" Value="0"/>
+        </Style>
+    </Window.Resources>
+
+    <Grid Margin="16">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <StackPanel Orientation="Horizontal" Margin="0 0 0 16" Grid.Row="0">
+            <Image Source="/Фото/Лого.png" Height="30" VerticalAlignment="Center"/>
+            <TextBlock x:Name="TitleBlock"
+                       Text="Заголовок"
+                       FontFamily="Tw Cen MT"
+                       FontSize="24"
+                       FontWeight="Bold"
+                       Foreground="#37474F"
+                       VerticalAlignment="Center"
+                       Margin="16 0 0 0"/>
+        </StackPanel>
+
+        <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto">
+            <StackPanel Width="400" HorizontalAlignment="Center">
+
+                <TextBlock Text="Название объявления:" Style="{StaticResource LabelStyle}"/>
+                <TextBox x:Name="TitleBox" Style="{StaticResource InputBoxStyle}" MaxLength="100"/>
+
+                <TextBlock Text="Описание:" Style="{StaticResource LabelStyle}"/>
+                <TextBox x:Name="DescriptionBox"
+                         Style="{StaticResource InputBoxStyle}"
+                         Height="100"
+                         TextWrapping="Wrap"
+                         AcceptsReturn="True"
+                         VerticalScrollBarVisibility="Auto"/>
+
+                <TextBlock Text="Цена (руб.):" Style="{StaticResource LabelStyle}"/>
+                <TextBox x:Name="PriceBox" Style="{StaticResource InputBoxStyle}"/>
+
+                <Grid Margin="0 0 0 16">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+
+                    <StackPanel Grid.Column="0" Margin="0 0 8 0">
+                        <TextBlock Text="Город:" Style="{StaticResource LabelStyle}"/>
+                        <ComboBox x:Name="CityBox" Style="{StaticResource ComboBoxStyle}"/>
+                    </StackPanel>
+
+                    <StackPanel Grid.Column="1" Margin="8 0 0 0">
+                        <TextBlock Text="Категория:" Style="{StaticResource LabelStyle}"/>
+                        <ComboBox x:Name="CategoryBox" Style="{StaticResource ComboBoxStyle}"/>
+                    </StackPanel>
+                </Grid>
+
+                <Grid Margin="0 0 0 16">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+
+                    <StackPanel Grid.Column="0" Margin="0 0 8 0">
+                        <TextBlock Text="Тип:" Style="{StaticResource LabelStyle}"/>
+                        <ComboBox x:Name="TypeBox" Style="{StaticResource ComboBoxStyle}"/>
+                    </StackPanel>
+
+                    <StackPanel Grid.Column="1" Margin="8 0 0 0">
+                        <TextBlock Text="Статус:" Style="{StaticResource LabelStyle}"/>
+                        <ComboBox x:Name="StatusBox" 
+                                  Style="{StaticResource ComboBoxStyle}"
+                                  SelectionChanged="StatusBox_SelectionChanged"/>
+                    </StackPanel>
+                </Grid>
+
+                <StackPanel x:Name="ProfitPanel" Visibility="Collapsed" Margin="0 0 0 16">
+                    <TextBlock Text="Полученная сумма (для завершенного объявления):" Style="{StaticResource LabelStyle}"/>
+                    <TextBox x:Name="ProfitBox" Style="{StaticResource InputBoxStyle}"/>
+                </StackPanel>
+
+            </StackPanel>
+        </ScrollViewer>
+
+        <StackPanel Orientation="Horizontal" Grid.Row="2" HorizontalAlignment="Right">
+            <Button Content="Назад"
+                    Style="{StaticResource SecondaryButtonStyle}"
+                    Click="BackButton_Click"/>
+
+            <Button Content="Сохранить"
+                    Style="{StaticResource PrimaryButtonStyle}"
+                    Margin="16 0 0 0"
+                    Click="SaveButton_Click"/>
+        </StackPanel>
+    </Grid>
+</Window>
