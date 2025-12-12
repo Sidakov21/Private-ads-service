@@ -23,7 +23,7 @@ namespace УП_2_по_ТРПО_Сервис_частных_объявлений
         public int category_id { get; set; }
         public int ad_type_id { get; set; }
         public int ad_status_id { get; set; }
-        public Nullable<double> price { get; set; }
+        public Nullable<decimal> price { get; set; }
         public string ad_photo_path { get; set; }
     
         public virtual Ad_Statuses Ad_Statuses { get; set; }

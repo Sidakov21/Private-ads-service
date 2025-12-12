@@ -227,7 +227,7 @@ namespace УП_2_по_ТРПО_Сервис_частных_объявлений
         }
 
         // Хелпер для переноса данных из формы в объект
-        private void GetAdFromForm(Ads ad, double price)
+        private void GetAdFromForm(Ads ad, decimal price)
         {
             ad.ad_title = TitleBox.Text.Trim();
             ad.ad_description = DescriptionBox.Text.Trim();
@@ -316,7 +316,7 @@ namespace УП_2_по_ТРПО_Сервис_частных_объявлений
                 }
 
                 // Обновление полей объявления
-                GetAdFromForm(ad, (double)price);
+                GetAdFromForm(ad, price);
 
                 var newStatus = StatusBox.SelectedItem as Ad_Statuses;
 
